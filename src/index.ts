@@ -6,6 +6,30 @@ class out {
     }
 }
 
+type RawWeek = {
+    start: Date; // as usual Monday
+    end: Date;   // as usual Friday
+}
+
+type RawMonth = {
+    month: Date;
+    weeks: RawWeek[];
+}
+
+class Months {
+    raw: RawMonth[] = [];
+
+    addMonth(month: Date) {
+        this.raw.push({
+            month,
+            weeks: []
+        });
+    }
+    addWeek(start: Date, end: Date) {
+        this.raw[this.raw.length - 1].weeks.push({ start, end });
+    }
+}
+
 function getWeeks(forYear: number): string {
     const DATE_FORMAT = { year: '2-digit', day: '2-digit', month: '2-digit' };
     const SEPARATOR = `${'/'.repeat(78)}`;
@@ -17,7 +41,9 @@ function getWeeks(forYear: number): string {
     let prevWeekD2Year: number;
     let currentMonth = -1;
 
-    for (let i = 0; i < 52 + 2; i++) {
+    const months = new Months();
+
+    for (let week = 0; week < 52 + 2; week++) {
         let d1 = new Date(firstMonday);
         let d2 = new Date(firstMonday + ms4days);
 
@@ -27,9 +53,10 @@ function getWeeks(forYear: number): string {
             let y1 = d1.getFullYear();
             let y2 = d2.getFullYear();
 
-            let theLastIsSameYear = i === 0 || (y2 === prevWeekD2Year && y1 === y2);
+            let theLastIsSameYear = week === 0 || (y2 === prevWeekD2Year && y1 === y2);
             if (theLastIsSameYear) {
                 out.print(`\n${SEPARATOR}\n${zeros(m + 1, 2, '0')} ${getMonthName(d2)}\n${SEPARATOR}`);
+                months.addMonth(d2);
             }
         }
 
@@ -38,6 +65,7 @@ function getWeeks(forYear: number): string {
         
         let s = `${ds1} - ${ds2}`.replace(/\//g, '.');
         out.print(s);
+        months.addWeek(d1, d2);
 
         if (m < currentMonth) {
             break; // the next year begins
