@@ -1,11 +1,3 @@
-class out {
-    static buffer: string = '';
-
-    static print(s: any) {
-        this.buffer += s + '\n';
-    }
-}
-
 type RawWeek = {
     start: Date; // as usual Monday
     end: Date;   // as usual Friday
@@ -19,6 +11,11 @@ type RawMonth = {
 
 class Months {
     raw: RawMonth[] = [];
+    yaer: number; // like 2021
+
+    constructor(year: number) {
+        this.yaer = year;
+    }
 
     addMonth(numb: number, month: Date) {
         this.raw.push({
@@ -42,7 +39,7 @@ function getWeeks(forYear: number): Months {
     let prevWeekD2Year: number;
     let currentMonth = -1;
 
-    const months = new Months();
+    const months = new Months(forYear);
 
     for (let week = 0; week < 52 + 2; week++) {
         let d1 = new Date(firstMonday);
@@ -56,16 +53,10 @@ function getWeeks(forYear: number): Months {
 
             let theLastIsSameYear = week === 0 || (y2 === prevWeekD2Year && y1 === y2);
             if (theLastIsSameYear) {
-                //out.print(`\n${SEPARATOR}\n${zeros(m + 1, 2, '0')} ${getMonthName(d2)}\n${SEPARATOR}`);
                 months.addMonth(m, d2);
             }
         }
 
-        // let ds1 = d1.toLocaleDateString('en-US', DATE_FORMAT);
-        // let ds2 = d2.toLocaleDateString('en-US', DATE_FORMAT);
-        
-        // let s = `${ds1} - ${ds2}`.replace(/\//g, '.');
-        // out.print(s);
         months.addWeek(d1, d2);
 
         if (m < currentMonth) {
@@ -97,6 +88,14 @@ function getWeeks(forYear: number): Months {
 }
 
 function formatMonths(months: Months): string {
+    class out {
+        static buffer: string = `Happy New Year ${months.yaer}\n`;
+    
+        static print(s: any) {
+            this.buffer += s + '\n';
+        }
+    }
+    
     const DATE_FORMAT = { year: '2-digit', day: '2-digit', month: '2-digit' };
     const SEPARATOR = `${'/'.repeat(78)}`;
 
