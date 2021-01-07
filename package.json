@@ -1,0 +1,13 @@
+{
+    "name": "week-calendar",
+    "description": "Simple CLI calendar generator.",
+    "version": "1.0.0",
+    "main": "index.js",
+    "author": "Max Zakharzhevskiy <maxzz@msn.com>",
+    "license": "MIT",
+    "scripts": {
+        "dev": "tsc -w",
+        "build": "tsc",
+        "test": "node dist/index.js > dist/2021.txt"
+    }
+}
