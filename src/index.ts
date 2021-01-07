@@ -12,6 +12,7 @@ type RawWeek = {
 }
 
 type RawMonth = {
+    numb: number; // [1..12]
     month: Date;
     weeks: RawWeek[];
 }
@@ -19,8 +20,9 @@ type RawMonth = {
 class Months {
     raw: RawMonth[] = [];
 
-    addMonth(month: Date) {
+    addMonth(numb: number, month: Date) {
         this.raw.push({
+            numb,
             month,
             weeks: []
         });
@@ -30,14 +32,13 @@ class Months {
     }
 }
 
-function getWeeks(forYear: number): string {
-    const DATE_FORMAT = { year: '2-digit', day: '2-digit', month: '2-digit' };
-    const SEPARATOR = `${'/'.repeat(78)}`;
+function getWeeks(forYear: number): Months {
+   
     const ms1day = 1000 * 60 * 60 * 24;
     const ms4days = ms1day * 4; // i.e. Monday + the rest 4 working days
     const ms7days = ms1day * 7;
 
-    let firstMonday: number = getFirstMonday();
+    let firstMonday: number = getFirstMonday(forYear);
     let prevWeekD2Year: number;
     let currentMonth = -1;
 
@@ -55,16 +56,16 @@ function getWeeks(forYear: number): string {
 
             let theLastIsSameYear = week === 0 || (y2 === prevWeekD2Year && y1 === y2);
             if (theLastIsSameYear) {
-                out.print(`\n${SEPARATOR}\n${zeros(m + 1, 2, '0')} ${getMonthName(d2)}\n${SEPARATOR}`);
-                months.addMonth(d2);
+                //out.print(`\n${SEPARATOR}\n${zeros(m + 1, 2, '0')} ${getMonthName(d2)}\n${SEPARATOR}`);
+                months.addMonth(m, d2);
             }
         }
 
-        let ds1 = d1.toLocaleDateString('en-US', DATE_FORMAT);
-        let ds2 = d2.toLocaleDateString('en-US', DATE_FORMAT);
+        // let ds1 = d1.toLocaleDateString('en-US', DATE_FORMAT);
+        // let ds2 = d2.toLocaleDateString('en-US', DATE_FORMAT);
         
-        let s = `${ds1} - ${ds2}`.replace(/\//g, '.');
-        out.print(s);
+        // let s = `${ds1} - ${ds2}`.replace(/\//g, '.');
+        // out.print(s);
         months.addWeek(d1, d2);
 
         if (m < currentMonth) {
@@ -76,9 +77,9 @@ function getWeeks(forYear: number): string {
         firstMonday += ms7days;
     }
 
-    return out.buffer;
+    return months;
 
-    function getFirstMonday() {
+    function getFirstMonday(forYear: number) {
         let d = +new Date(forYear - 1, 11, 31 - 6); // get prev week
 
         let firstMonday: number;
@@ -93,6 +94,11 @@ function getWeeks(forYear: number): string {
         }
         return firstMonday;
     }
+}
+
+function formatMonths(months: Months): string {
+    const DATE_FORMAT = { year: '2-digit', day: '2-digit', month: '2-digit' };
+    const SEPARATOR = `${'/'.repeat(78)}`;
 
     function getMonthName(d: Date): string {
         return d.toLocaleDateString('en-US', { month: 'long' });
@@ -102,12 +108,27 @@ function getWeeks(forYear: number): string {
         const n = ''+num;
         return fillChar.repeat(nTo - n.length <= 0 ? 0 : nTo - n.length) + n;
     }
+
+    months.raw.forEach(month => {
+        out.print(`\n${SEPARATOR}\n${zeros(month.numb + 1, 2, '0')} ${getMonthName(month.month)}\n${SEPARATOR}`);
+
+        month.weeks.forEach(week => {
+            let ds1 = week.start.toLocaleDateString('en-US', DATE_FORMAT);
+            let ds2 = week.end.toLocaleDateString('en-US', DATE_FORMAT);
+            
+            let s = `${ds1} - ${ds2}`.replace(/\//g, '.');
+            out.print(s);
+        });
+    });
+    
+    return out.buffer;
 }
 
 function main() {
     let FOR_YEAR = '2021';
 
-    let s = getWeeks(+FOR_YEAR);
+    let months = getWeeks(+FOR_YEAR);
+    let s = formatMonths(months);
     console.log(s);
 }
 
