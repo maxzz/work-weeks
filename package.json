@@ -1,6 +1,6 @@
 {
-    "name": "week-calendar",
-    "description": "Simple CLI calendar generator.",
+    "name": "work-weeks-calendar",
+    "description": "A simple calendar generator for working weeks.",
     "version": "1.0.0",
     "main": "index.js",
     "author": "Max Zakharzhevskiy <maxzz@msn.com>",
@@ -9,5 +9,8 @@
         "dev": "tsc -w",
         "build": "tsc",
         "test": "node dist/index.js > dist/2021.txt"
+    },
+    "devDependencies": {
+        "@types/node": "^14.14.20"
     }
 }

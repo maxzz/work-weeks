@@ -16,6 +16,7 @@
                 "${workspaceFolder}/dist/**/*.js"
             ],
             //"args": [">", "dist/2.txt"]
+            "args": ["1963"]
         }
     ]
 }
