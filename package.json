@@ -1,7 +1,7 @@
 {
     "name": "work-weeks",
     "description": "Utility to generate working weeks per year",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": "Max Zakharzhevskiy <maxzz@msn.com>",
     "license": "MIT",
     "main": "dist/cli.js",
@@ -18,10 +18,10 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/maxzz/work-wweks.git"
+        "url": "git+https://github.com/maxzz/work-weeks.git"
     },
     "bugs": {
-        "url": "https://github.com/maxzz/work-wweks/issues"
+        "url": "https://github.com/maxzz/work-weeks/issues"
     },
     "scripts": {
         "dev": "tsc -w",
