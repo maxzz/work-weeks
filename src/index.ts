@@ -31,55 +31,57 @@ class Months {
 
 export function getWeeks(forYear: number): Months {
    
-    const ms1day = 1000 * 60 * 60 * 24;
-    const ms4days = ms1day * 4; // i.e. Monday + the rest 4 working days
-    const ms7days = ms1day * 7;
+    const MS_1DAY = 1000 * 60 * 60 * 24;
+    const MS_4DAYS = MS_1DAY * 4;
+    const MS_7DAYS = MS_1DAY * 7;
 
-    let firstMonday: number = getFirstMonday(forYear);
+    let thisWeekMonday: number = getFirstMonday(forYear);
     let prevWeekD2Year: number;
     let currentMonth = -1;
 
-    const months = new Months(forYear);
+    const rv = new Months(forYear);
 
-    for (let week = 0; week < 52 + 2; week++) {
-        let d1 = new Date(firstMonday);
-        let d2 = new Date(firstMonday + ms4days);
+    for (let week = 0; week < 52 + 2; week++) { // +2 for one week past year and one week for the next year
+        let thisWeekDayMon = new Date(thisWeekMonday);
+        let thisWeekDayFri = new Date(thisWeekMonday + MS_4DAYS); // i.e. Monday + the rest 4 working days
 
-        let m = d2.getMonth(); // d2 is starting month
+        let thisWeekFriMouth = thisWeekDayFri.getMonth(); // thisWeekDayFri is starting month
 
-        if (m !== currentMonth) {
-            let y1 = d1.getFullYear();
-            let y2 = d2.getFullYear();
+        if (thisWeekFriMouth !== currentMonth) {
+            let thisWeekMonYear = thisWeekDayMon.getFullYear();
+            let thisWeekFriYear = thisWeekDayFri.getFullYear();
 
-            let theLastIsSameYear = week === 0 || (y2 === prevWeekD2Year && y1 === y2);
+            let theLastIsSameYear = week === 0 || (thisWeekFriYear === prevWeekD2Year && thisWeekMonYear === thisWeekFriYear);
             if (theLastIsSameYear) {
-                months.addMonth(m, d2);
+                rv.addMonth(thisWeekFriMouth, thisWeekDayFri);
             }
         }
 
-        months.addWeek(d1, d2);
+        rv.addWeek(thisWeekDayMon, thisWeekDayFri);
 
-        if (m < currentMonth) {
-            break; // the next year begins
+        let isNextYear = thisWeekFriMouth < currentMonth && rv.raw.length > 50; // the next year begins
+        if (isNextYear) {
+            break;
         }
-        currentMonth = m;
+        currentMonth = thisWeekFriMouth;
 
-        prevWeekD2Year = d2.getFullYear();
-        firstMonday += ms7days;
+        prevWeekD2Year = thisWeekDayFri.getFullYear();
+        thisWeekMonday += MS_7DAYS;
     }
 
-    return months;
+    return rv;
 
-    function getFirstMonday(forYear: number) {
-        let d = +new Date(forYear - 1, 11, 31 - 6); // get prev week
+    function getFirstMonday(forYear: number): number {
+        let currentDay = +new Date(forYear - 1, 11, 31 - 6); // get the last week of December in the previous year
 
         let firstMonday: number;
         for (let i = 0; i < 7; i++) {
-            d += ms1day;
+            currentDay += MS_1DAY;
     
-            let currD = new Date(d);
-            if (currD.getDay() === 1/*Monday*/) {
-                firstMonday = +new Date(currD);
+            let thisDay = new Date(currentDay);
+            let isMonday = thisDay.getDay() === 1/*Monday*/;
+            if (isMonday) {
+                firstMonday = +new Date(thisDay);
                 break;
             }
         }
