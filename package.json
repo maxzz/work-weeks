@@ -29,6 +29,6 @@
         "url": "https://github.com/maxzz/work-weeks/issues"
     },
     "devDependencies": {
-        "@types/node": "^14.14.20"
+        "@types/node": "18.11.17"
     }
 }
