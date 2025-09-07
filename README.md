@@ -13,7 +13,7 @@ npm i -g work-weeks
 or
 
 ```bash
-yarn global add work-weeks
+pnpm global add work-weeks
 ```
 
 ## Usage

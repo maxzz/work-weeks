@@ -15,20 +15,20 @@
             "runtimeExecutable": "tsx",
             "program": "${workspaceFolder}/src/index.ts",
         },
-        {
-            "name": "node-old",
-            "type": "node",
-            "request": "launch",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}/src/index.ts",
-            "outFiles": [
-                "${workspaceFolder}/dist/**/*.js"
-            ],
-            //"args": [">", "dist/2.txt"]
-            //"args": ["1963"]
-            "args": ["2022"]
-        }
+        // {
+        //     "name": "node-old",
+        //     "type": "node",
+        //     "request": "launch",
+        //     "skipFiles": [
+        //         "<node_internals>/**"
+        //     ],
+        //     "program": "${workspaceFolder}/src/index.ts",
+        //     "outFiles": [
+        //         "${workspaceFolder}/dist/**/*.js"
+        //     ],
+        //     //"args": [">", "dist/2.txt"]
+        //     //"args": ["1963"]
+        //     "args": ["2022"]
+        // }
     ]
 }
