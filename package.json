@@ -4,16 +4,6 @@
     "description": "Utility to generate working weeks per year",
     "author": "Max Zakharzhevskiy <maxzz@msn.com>",
     "license": "MIT",
-    "scripts": {
-        "dev": "tsc -w",
-        "build": "rm -rf dist && tsc --sourceMap false",
-        "prepublish": "yarn build"
-    },
-    "main": "dist/index.js",
-    "bin": "dist/cli.js",
-    "files": [
-        "dist/**/*"
-    ],
     "engines": {
         "node": ">=10.16.0"
     },
@@ -28,7 +18,17 @@
     "bugs": {
         "url": "https://github.com/maxzz/work-weeks/issues"
     },
+    "main": "dist/index.js",
+    "bin": "dist/cli.js",
+    "files": [
+        "dist/**/*"
+    ],
     "devDependencies": {
         "@types/node": "18.11.17"
+    },
+    "scripts": {
+        "dev": "tsc -w",
+        "build": "rm -rf dist && tsc --sourceMap false",
+        "prepublish": "yarn build"
     }
 }
