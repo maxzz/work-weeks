@@ -1,6 +1,6 @@
 {
     "name": "work-weeks",
-    "version": "1.0.4",
+    "version": "1.25.1",
     "description": "Utility to generate working weeks per year",
     "author": "Max Zakharzhevskiy <maxzz@msn.com>",
     "license": "MIT",
@@ -26,11 +26,12 @@
     "devDependencies": {
         "@types/node": "18.11.17",
         "tsup": "^8.5.0",
-        "tsx": "^4.20.5"
+        "tsx": "^4.20.5",
+        "typescript": "^5.9.2"
     },
     "scripts": {
         "dev": "tsc -w",
-        "_build": "rm -rf dist && tsc --sourceMap false",
-        "_prepublish": "pnpm build"
+        "build": "tsup --entry.weeks src/index.ts --entry.cli src/cli.ts --format cjs --clean",
+        "prepublish": "pnpm build"
     }
 }

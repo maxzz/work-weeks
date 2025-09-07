@@ -9,12 +9,11 @@
             "type": "node",
             "request": "launch",
             "skipFiles": [
-                "<node_internals>/**"
+                "<node_internals>/**",
+                "${workspaceFolder}/node_modules/**",
             ],
+            "runtimeExecutable": "tsx",
             "program": "${workspaceFolder}/src/index.ts",
-            "outFiles": [
-                "${workspaceFolder}/dist/**/*.js"
-            ],
         },
         {
             "name": "node-old",
