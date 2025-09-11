@@ -29,6 +29,9 @@
         "tsx": "^4.20.5",
         "typescript": "^5.9.2"
     },
+    "dependencies": {
+        "cac": "^6.7.14"
+    },
     "scripts": {
         "tsc": "tsc -w",
         "build:env": "tsx scripts/extract-package-fields.ts name version author",

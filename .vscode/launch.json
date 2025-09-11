@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "node",
+            "name": "src",
             "type": "node",
             "request": "launch",
             "skipFiles": [
@@ -14,7 +14,24 @@
             ],
             "runtimeExecutable": "tsx",
             "program": "${workspaceFolder}/src/index.ts",
+            "args": [
+                "2026"
+            ]
         },
+        {
+            "name": "generate",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**",
+                "${workspaceFolder}/node_modules/**",
+            ],
+            "runtimeExecutable": "tsx",
+            "program": "${workspaceFolder}/scripts/generate.ts",
+            "args": [
+                "version"
+            ]
+        }
         // {
         //     "name": "node-old",
         //     "type": "node",
