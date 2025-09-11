@@ -36,7 +36,7 @@ export function getWeeks(forYear: number): Months {
     const MS_7DAYS = MS_1DAY * 7;
 
     let thisWeekMonday: number = getFirstMonday(forYear);
-    let prevWeekD2Year: number;
+    let prevWeekD2Year: number = -1;
     let currentMonth = -1;
 
     const rv = new Months(forYear);
@@ -74,7 +74,7 @@ export function getWeeks(forYear: number): Months {
     function getFirstMonday(forYear: number): number {
         let currentDay = +new Date(forYear - 1, 11, 31 - 6); // get the last week of December in the previous year
 
-        let firstMonday: number;
+        let firstMonday: number = 0;
         for (let i = 0; i < 7; i++) {
             currentDay += MS_1DAY;
     

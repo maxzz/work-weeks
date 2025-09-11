@@ -3,8 +3,14 @@
         "target": "esnext",
         "module": "commonjs",
         
+        "noEmit": true,
+        "strict": true,
         //"sourceMap": true,
         //"outDir": "./dist/",
         "esModuleInterop": true,
-    }
+    },
+    "include": [
+        "src/**/*",
+        "scripts/**/*"
+    ]
 }
