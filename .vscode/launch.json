@@ -29,7 +29,8 @@
             "runtimeExecutable": "tsx",
             "program": "${workspaceFolder}/scripts/from-pkg.ts",
             "args": [
-                "version"
+                "name",
+                "version",
             ]
         }
         // {
