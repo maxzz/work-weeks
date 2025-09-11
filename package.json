@@ -31,7 +31,9 @@
     },
     "scripts": {
         "tsc": "tsc -w",
-        "build": "tsup --entry.weeks src/index.ts --entry.cli src/cli.ts --format cjs --clean",
+        "build:env": "tsx scripts/extract-package-fields.ts name version author",
+        "build:src": "tsup --entry.weeks src/index.ts --entry.cli src/cli.ts --format cjs --clean",
+        "build": "pnpm build:env && pnpm build:src",
         "prepublish": "pnpm build"
     }
 }

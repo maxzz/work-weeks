@@ -1,5 +1,5 @@
 import { formatMonths, getWeeks } from './work-weeks';
-const config = require('../package.json');
+import * as config from './package';
 
 function main() {
     function showHelp() {
