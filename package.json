@@ -1,6 +1,6 @@
 {
     "name": "work-weeks",
-    "version": "1.25.2",
+    "version": "1.25.3",
     "description": "Utility to generate working weeks per year",
     "author": "Max Zakharzhevskiy <maxzz@msn.com>",
     "license": "MIT",
@@ -37,6 +37,7 @@
         "build:pkg": "tsx scripts/from-pkg.ts name version author",
         "build:src": "tsup --entry.weeks src/index.ts --entry.cli src/cli.ts --format cjs --clean",
         "build": "pnpm build:pkg && pnpm build:src",
-        "prepublish": "pnpm build"
+        "prepublish": "pnpm build",
+        "to-npm": "pnpm publish  --no-git-checks"
     }
 }
