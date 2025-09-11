@@ -3,6 +3,7 @@ import * as path from 'path';
 import cac from 'cac';
 
 // This file extracts fields from package.json and generates src/package.ts
+// Former extract-package-fields.ts
 // Usage: ts-node scripts/extract-package-fields.ts <fieldName1> <fieldName2> ...
 
 const cli = cac('extract-package-fields');
